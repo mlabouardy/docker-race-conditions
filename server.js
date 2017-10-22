@@ -1,4 +1,6 @@
-var MySQL = require('mysql');
+var MySQL = require('mysql'),
+    express = require('express'),
+    app = express();
 
 var connection = MySQL.createConnection({
   host : process.env.MYSQL_HOST || 'localhost',
@@ -14,7 +16,10 @@ connection.connect(function(err){
   console.log('connected as id:', connection.threadId);
 })
 
-while(1){
-  console.log('Waiting for works .....');
-  sleep(5);
-}
+app.get('/', function(req, res){
+  res.send('Hello world :)');
+})
+
+app.listen(3000, function(){
+  console.log('Server started ....');
+})
